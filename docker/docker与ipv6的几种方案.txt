@@ -1,59 +1,64 @@
-»·¾³£º
+çŽ¯å¢ƒï¼š
 centos 7.4
 docker 18.0.3
 iptables 1.4.21
 ip6tables 1.4.21
 
-³¡¾°£ºÓÐÈô¸É·þÎñÔËÐÐÓÚÈÝÆ÷ÖÐ¡£·þÎñ³ÌÐòÐèÒª½ÓÊÕipv6ÇëÇó²¢ÏìÓ¦¡£Ò»ÏÂ½éÉÜ3ÖÖ½â¾ö·½°¸£¬ÓÉ¼òµ¥µ½¸´ÔÓ£¬Öð¸ö½â¾ö¼òµ¥·½°¸ÖÐµÄÈ±ÏÝ¡£
+åœºæ™¯ï¼šæœ‰è‹¥å¹²æœåŠ¡è¿è¡ŒäºŽå®¹å™¨ä¸­ã€‚æœåŠ¡ç¨‹åºéœ€è¦æŽ¥æ”¶ipv6è¯·æ±‚å¹¶å“åº”ã€‚ä¸€ä¸‹ä»‹ç»3ç§è§£å†³æ–¹æ¡ˆï¼Œç”±ç®€å•åˆ°å¤æ‚ï¼Œé€ä¸ªè§£å†³ç®€å•æ–¹æ¡ˆä¸­çš„ç¼ºé™·ã€‚
 
-Ò»¡¢ÀûÓÃdockerÔ­ÉúÌØÐÔµÄipv6ËíµÀ¼¼Êõ·½°¸
-×î¼òµ¥µÄ·½·¨ÔÚÓÚÖ±½ÓÀûÓÃdockerµÄipv6 - > ipv4×ª·¢»úÖÆ¡£dockerÈÝÆ÷ÔÚ´´½¨Ê±¿É¶Ô¶Ë¿Ú½øÐÐÓ³Éä£¬½«ÈÝÆ÷¶Ë¿ÚºÍÖ÷»ú¶Ë¿Ú½øÐÐ°ó¶¨¡£¸ÃÅäÖÃÒªÇóÈÝÆ÷Ê¹ÓÃdockerµÄbridgeÍøÂçÄ£Ê½¡£
-¼òµ¥½éÉÜÒ»ÏÂ¶Ë¿ÚÓ³ÉäµÄ¹¤×÷Ô­Àí¡£¶Ë¿ÚÓ³Éä¹¤×÷ÓÉdocker-proxyÍê³É¹ÜÀí¡£docker-proxy»á¼àÌý¶ÔÓ¦¶Ë¿ÚµÄipv4µÄ¶Ë¿ÚÓ³ÉäÊÇ»ùÓÚdocker-proxy¹ÜÀíºÍ´´½¨µÄiptables¹æÔòÍê³Éipv4Êý¾Ý±¨µÄ×ª·¢¡£µ±Êý¾Ý½øÈëÖ÷»úÊ±»áÓÐiptables¹æÔòÆ¥Åä£¬²¢½«Æä×ª·¢µ½°ó¶¨µÄÈÝÆ÷¶Ë¿Ú¡£Èç¹ûÊý¾Ý°üÃ»ÓÐÆ¥Åäiptables¹æÔò£¬½øÈëÖ÷»úÓÃ»§Ì¬£¬´ËÊ±ÓÉdocker-proxy¼àÌýµÄ¶Ë¿Ú½ÓÊÕµ½Êý¾Ý±¨Ò²»á½«Êý¾Ý×ª·¢µ½¶ÔÓ¦µÄÈÝÆ÷¶Ë¿Ú¡£ÈÝÆ÷¶ÔÍâ·¢ËÍÊý¾ÝÊ±£¬Êý¾Ý±¨»á¾­¹ýiptables¹æÔòµÄµØÖ·Î±×°½«Êý¾Ý±¨·¢ËÍµ½Íâ²¿»·¾³¡££¨ÏêÏ¸Ô­Àí¿É²é¿´dongkerÍøÂçÓëiptables£©
-¶ødockerµÄipv6 ->ipv4·½°¸£¬²»Ïñipv4Ò»ÑùÖ±½Ó¾­¹ýip6tablesµÄ×ª·¢·¢ËÍµ½ÈÝÆ÷ÄÚ£¬Êý¾Ý±¨Ê×ÏÈ½øÈëÖ÷»úÓÃ»§Ì¬£¬±»docker-proxy¼àÌýµÄipv6¶Ë¿Ú½ÓÊÕ£¬docker-proxy»á½«ipv6Êý¾Ý±¨¸ÄÔìÎªipv4Êý¾Ý±¨·¢ËÍ¸øÈÝÆ÷¶ÔÓ¦¶Ë¿Ú£¬²¢½ÓÊÜÈÝÆ÷·¢»ØµÄipv4Êý¾Ý±¨£¬×îºó½«Æä¸ÄÔìÎªipv6²¢ÏìÓ¦ÇëÇó¡£
-´´½¨ipv6 -> ipv4µÄËíµÀ¼¼ÊõÒªÇóÔÚ´´½¨ÈÝÆ÷µÄÊ±ºòÍ¨¹ý¡°-p hostPort:containerPort¡± ÐÎ³É¶Ë¿ÚÓ³Éä¡£
-ÓÅµãÔÚÓÚ£º
-1¡¢²»ÐèÒª¶îÍâµÄÅäÖÃ£¬Ö»Òª±£Ö¤ipv6µØÖ·¿ÉÓÃ£¬ÊµÏÖ¼òµ¥¡£
-2¡¢¶ÔÓÚÒ»Ð©ÒÑ³ÉÐÍµÄ²úÆ·²»ÐèÒª½øÐÐÐÂµÄ¿ª·¢£¬ÄÜ¿ìËÙµÄÂú×ãÖ§³Ö
-È±µãÔÚÓÚ£º
-1¡¢ËÙ¶ÈÂý£¬ÒòÎªÊý¾Ý±¨µÄÀ´»ØÐèÒª¾­¹ýdocker-proxyµÄÐ­Òé¸ÄÔì£¬Êý¾ÝÁ¿Ô½´ó£¬ËÙ¶ÈÔ½Âý¡£Ò»¸ö¼òµ¥µÄ·þÎñÇëÇóÏìÓ¦Ê±¼äÔÚ1-3s£¬ÈôÇëÇóµÄÊý¾Ý±¨´ó£¬Õâ¸öÊ±¼ä»á¸ü´ó¡£
-2¡¢ÈÝÆ÷ÎÞ·¨Í¨¹ýipv6µØÖ··ÃÎÊÈÝÆ÷ÍâµÄ·þÎñ¡£
+  ä¸€ã€åˆ©ç”¨dockeråŽŸç”Ÿç‰¹æ€§çš„ipv6éš§é“æŠ€æœ¯æ–¹æ¡ˆ
+  
+  æœ€ç®€å•çš„æ–¹æ³•åœ¨äºŽç›´æŽ¥åˆ©ç”¨dockerçš„ipv6 - > ipv4è½¬å‘æœºåˆ¶ã€‚dockerå®¹å™¨åœ¨åˆ›å»ºæ—¶å¯å¯¹ç«¯å£è¿›è¡Œæ˜ å°„ï¼Œå°†å®¹å™¨ç«¯å£å’Œä¸»æœºç«¯å£è¿›è¡Œç»‘å®šã€‚è¯¥é…ç½®è¦æ±‚å®¹å™¨ä½¿ç”¨dockerçš„bridgeç½‘ç»œæ¨¡å¼ã€‚
+  ç®€å•ä»‹ç»ä¸€ä¸‹ç«¯å£æ˜ å°„çš„å·¥ä½œåŽŸç†ã€‚ç«¯å£æ˜ å°„å·¥ä½œç”±docker-proxyå®Œæˆç®¡ç†ã€‚docker-proxyä¼šç›‘å¬å¯¹åº”ç«¯å£çš„ipv4çš„ç«¯å£æ˜ å°„æ˜¯åŸºäºŽdocker-proxyç®¡ç†å’Œåˆ›å»ºçš„iptablesè§„åˆ™å®Œæˆipv4æ•°æ®æŠ¥çš„è½¬å‘ã€‚å½“æ•°æ®è¿›å…¥ä¸»æœºæ—¶ä¼šæœ‰iptablesè§„åˆ™åŒ¹é…ï¼Œå¹¶å°†å…¶è½¬å‘åˆ°ç»‘å®šçš„å®¹å™¨ç«¯å£ã€‚å¦‚æžœæ•°æ®åŒ…æ²¡æœ‰åŒ¹é…iptablesè§„åˆ™ï¼Œè¿›å…¥ä¸»æœºç”¨æˆ·æ€ï¼Œæ­¤æ—¶ç”±docker-proxyç›‘å¬çš„ç«¯å£æŽ¥æ”¶åˆ°æ•°æ®æŠ¥ä¹Ÿä¼šå°†æ•°æ®è½¬å‘åˆ°å¯¹åº”çš„å®¹å™¨ç«¯å£ã€‚å®¹å™¨å¯¹å¤–å‘é€æ•°æ®æ—¶ï¼Œæ•°æ®æŠ¥ä¼šç»è¿‡iptablesè§„åˆ™çš„åœ°å€ä¼ªè£…å°†æ•°æ®æŠ¥å‘é€åˆ°å¤–éƒ¨çŽ¯å¢ƒã€‚ï¼ˆè¯¦ç»†åŽŸç†å¯æŸ¥çœ‹dongkerç½‘ç»œä¸Žiptablesï¼‰
+  è€Œdockerçš„ipv6 ->ipv4æ–¹æ¡ˆï¼Œä¸åƒipv4ä¸€æ ·ç›´æŽ¥ç»è¿‡ip6tablesçš„è½¬å‘å‘é€åˆ°å®¹å™¨å†…ï¼Œæ•°æ®æŠ¥é¦–å…ˆè¿›å…¥ä¸»æœºç”¨æˆ·æ€ï¼Œè¢«docker-proxyç›‘å¬çš„ipv6ç«¯å£æŽ¥æ”¶ï¼Œdocker-proxyä¼šå°†ipv6æ•°æ®æŠ¥æ”¹é€ ä¸ºipv4æ•°æ®æŠ¥å‘é€ç»™å®¹å™¨å¯¹åº”ç«¯å£ï¼Œå¹¶æŽ¥å—å®¹å™¨å‘å›žçš„ipv4æ•°æ®æŠ¥ï¼Œæœ€åŽå°†å…¶æ”¹é€ ä¸ºipv6å¹¶å“åº”è¯·æ±‚ã€‚
+  åˆ›å»ºipv6 -> ipv4çš„éš§é“æŠ€æœ¯è¦æ±‚åœ¨åˆ›å»ºå®¹å™¨çš„æ—¶å€™é€šè¿‡â€œ-p hostPort:containerPortâ€ å½¢æˆç«¯å£æ˜ å°„ã€‚
+  
+  ä¼˜ç‚¹åœ¨äºŽï¼š
+  1ã€ä¸éœ€è¦é¢å¤–çš„é…ç½®ï¼Œåªè¦ä¿è¯ipv6åœ°å€å¯ç”¨ï¼Œå®žçŽ°ç®€å•ã€‚
+  2ã€å¯¹äºŽä¸€äº›å·²æˆåž‹çš„äº§å“ä¸éœ€è¦è¿›è¡Œæ–°çš„å¼€å‘ï¼Œèƒ½å¿«é€Ÿçš„æ»¡è¶³æ”¯æŒ
+  ç¼ºç‚¹åœ¨äºŽï¼š
+  1ã€é€Ÿåº¦æ…¢ï¼Œå› ä¸ºæ•°æ®æŠ¥çš„æ¥å›žéœ€è¦ç»è¿‡docker-proxyçš„åè®®æ”¹é€ ï¼Œæ•°æ®é‡è¶Šå¤§ï¼Œé€Ÿåº¦è¶Šæ…¢ã€‚ä¸€ä¸ªç®€å•çš„æœåŠ¡è¯·æ±‚å“åº”æ—¶é—´åœ¨1-3sï¼Œè‹¥è¯·æ±‚çš„æ•°æ®æŠ¥å¤§ï¼Œè¿™ä¸ªæ—¶é—´ä¼šæ›´å¤§ã€‚
+  2ã€å®¹å™¨æ— æ³•é€šè¿‡ipv6åœ°å€è®¿é—®å®¹å™¨å¤–çš„æœåŠ¡ã€‚
 
 
-¶þ¡¢ipv6Óëipv4»ìºÏ·½°¸
-»ùÓÚµÚÒ»¸ö·½°¸£¬½â¾öÆäÖÐµÄÈÝÆ÷ÎÞ·¨Í¨¹ýipv6µØÖ··ÃÎÊÍâ²¿·þÎñµÄÎÊÌâ¡£½â¾öÕâ¸öÎÊÌâ£¬·½·¨²»¸´ÔÓ£¬¿ÉÒÔÀûÓÃip6tables¶ÔÈÝÆ÷ÄÚÏòÍâ²¿·¢ËÍµÄÊý¾Ý½øÐÐµØÖ·Î±×°£¬Ê¹µÃipv6Êý¾ÝÄÜ¹»´ÓÈÝÆ÷ÖÐ¾­¹ýÖ÷»úÍø¿¨£¬²¢´ÓÕýÈ·µÄÍø¿¨Á÷ÏòÍâ²¿ÊÀ½ç¡££¨¸Ã·½°¸ÐèÒªÁË½âiptables¹æÔòÊ¹ÓÃ£¬ÏêÇé²é¿´iptables¹æÔò£©
-ÔÚdockerµÄbridgeÍøÇÅÖÐÄ¬ÈÏ²»»á¿ªÆôipv6Ä£Ê½£¬´ËÊ±ÈÝÆ÷ÄÚ²»»á·ÖÅäipv6µØÖ·£¬ÈÝÆ÷ÄÚ·þÎñÎÞ·¨ÊÕ·¢ipv6Êý¾Ý±¨¡£Òò´ËÐèÒªÎª´´½¨µÄbridgeÍøÂçÆô¶¯ipv6¡£Æô¶¯·½Ê½Îª´´½¨bridgeÍøÂçÊ±Îª´´½¨µÄÍøÂç·ÖÅäipv6µØÖ·£¬²¢ÆôÓÃipv6¡£µ±ÈÝÆ÷Ê¹ÓÃ¸ÃÍøÂçÊ±»á×Ô¶¯·ÖÅäipv6µØÖ·¡£
-docker´´½¨ipv6ÍøÂçÃüÁîÊµÀýÈçÏÂ£¬¾ßÌåµØÖ·¿É×ÔÐÐ¹æ»®£º
-"docker network create --gateway 172.17.0.1 --subnet 172.17.0.1/16 --subnet 20001:250:4001:2001::1/64 --gateway 20001:250:4001:2001::1 --ipv6 ipv6_test"
-µ±ÈÝÆ÷Æô¶¯Ê±¿ÉÍ¨¹ý"--network ipv6_test"µÄ·½Ê½ÎªÈÝÆ÷·ÖÅäÍøÂç£¬ÈÝÆ÷´´½¨³É¹¦¹ýºó£¬ÈÝÆ÷ÄÚ²¿»á×Ô¶¯·ÖÅäipv6µØÖ·¡£
-´ËÊ±¸Ã·½°¸µÄ¹¤×÷ÒÑ¾­Íê³É´ó°ëÁË£¬´ËÊ±ÈÝÆ÷ËäÈ»·ÖÅäÁËipv6µØÖ·£¬µ«ÊÇÈÔÈ»ÎÞ·¨·ÃÎÊÍâ²¿ÍøÂçµÄipv6µØÖ·¡£ÕâÊÇÒòÎªÈÝÆ÷ÄÚ·ÃÎÊÍâ²¿ipv6£¬Êý¾Ý±¨¾­¹ýÍøÇÅÁ÷ÈëÖ÷»úºóÔ´µØÖ·ÎªÈÝÆ÷ipv6µØÖ·£¬Õâ¸öµØÖ·ÎÞ·¨¶Ô±»Íâ²¿ÍøÂçËùÈÏ¿É£¬¸ÃÊý¾Ý±¨ÐèÒª¾­¹ýµØÖ·Î±×°£¬Ê¹Æäipv6Êý¾Ý±¨Ê¹ÓÃ¿ÉÓÃµÄipv6µØÖ·¡£Õâ¸ö¹ý³Ì¿ÉÒÔ½»¸øip6tables¹æÔò½øÐÐ£¬¹¤×÷·½Ê½Óëiptables¹æÔòÀàËÆ¡£
-ipv6Êý¾Ý±¨¾­¹ýÍøÇÅ½øÈëÖ÷»úÊ±£¬Ê×ÏÈ»áÓÉPREROUTING -> FORWARD ->OUTPUT ->POSTROUTINGµÈ¹æÔòÁ´¡£´ËÊ±ÓÉÓÚÃ»ÓÐ¾­¹ýµØÖ·Î±×°£¬Êý¾Ý±¨ÔÚ¾­¹ýPOSTROUTINGºóÎÞ·¨ÕýÈ·Ñ°Ö·£¬Òò´ËÎÞ·¨·ÃÎÊÍâ²¿ÍøÂç¡£Òò´ËÎÒÃÇ¿ÉÒÔÔÚPOSTROUTING´¦Îª¸ÃÊý¾Ý±¨¼ÓÉÏµØÖ·Î±×°¡£¹æÔò´´½¨Ö¸ÁîÊ¾ÀýÈçÏÂ£º
-¡°ip6tables -t nat -I POSTROUTING -j MASQUERADE¡±
-Ê¾ÀýÖ¸Áî£¬½«»á¶ÔÃ¿¸ö¾­¹ýPOSTROUTING¹æÔòÁ´µÄÊý¾Ý°ü¾­¹ýµØÖ·Î±×°¡£ÕâÊÇ×î¼òµ¥µÄÐ´·¨£¬¿ÉÒÔ¸ù¾ÝÐèÒª¶Ô¾«È·Æ¥ÅäÊý¾Ý°ü£¬ÀýÈç´ÓÊý¾Ý°üÔ´Ö·£¬Á÷ÈëÍø¿¨£¬Á÷³öÍø¿¨£¬ÀàÐÍµÈ½øÐÐ¾«È·Æ¥Åä£¨ÏêÇé¿É²é¿´iptables¹æÔò£¬´Ë´¦²»ÏêÏ¸½éÉÜ£©¡£
-´ËÊ±¿ÉÖ§³ÖÈÝÆ÷¶ÔÍâ·ÃÎÊ¡£
-ÓÅµã£º
-1¡¢ÔÚ·½°¸Ò»µÄ»ù´¡ÉÏ£¬ÇáÎ¢µÄ¸ÄÔìÒÔ¿ìËÙÖ§³ÖÈÝÆ÷¶ÔÍâ²¿ÍøÂç·ÃÎÊ
-È±µã£º
-1¡¢ÐèÒª¹ÜÀíµØÖ·Î±×°¹æÔò£¬Ê¹Æä³Ö¾Ã»¯£¬Ò²ÐíÐèÒªÒ»¸öÖ÷»úÏµÍ³¹ÜÀí·þÎñÀ´×¨ÃÅÎ¬»¤iptables¹æÔò
-2¡¢Íâ²¿ÍøÂçÍ¨¹ýipv6·ÃÎÊÈÝÆ÷£¬ÈÔÈ»ÊÇÍ¨¹ýdockerµÄipv6 -> ipv4ËíµÀ£¬Ð§ÂÊÈÔÈ»ºÜ²î
+äºŒã€ipv6ä¸Žipv4æ··åˆæ–¹æ¡ˆ
 
-Èý¡¢ip6tables¹æÔòÊµÏÖipv6ÈÝÆ÷×ª·¢
-»ùÓÚ·½°¸¶þµÄ»ù´¡ÉÏ£¬¸Ã·½°¸µÄ´ó²¿·Ö»ù´¡Ìõ¼þÒÑ¾­¿ÉÒÔÂú×ã¡£¶ÔÓÚip6tables¹æÔòµÄ¹ÜÀí£¬Ò»°ã»áÀûÓÃÒ»¸öÖ÷»úÉÏ·þÎñ½øÐÐ¹ÜÀí¡¢³Ö¾Ã»¯¡£ÄÇÃ´½è¼ødocker¶Ôipv4Êý¾Ý×ª·¢µÄÔ­Àí¡£¿ÉÒÔ½«ÆäÊ¹ÓÃÔÚipv6Êý¾Ý°üÖÐ¡£Í¨¹ýip6tablesµÄ¹ÜÀí¹¤¾ßÀ´¹ÜÀí×Ô¶¨ÒåµÄiptables¹æÔò¡£
-×ÜÌåÀ´ËµÒª¼òµ¥µÄÊµÏÖipv6Êý¾Ý°üÓÉip6tablesÊµÏÖ×ª·¢£¬Ö÷ÒªµÄ¹¤×÷ÔÚÓëÅäÖÃiptables¹æÔò¡£²¢½«iptables¹æÔò³Ö¾Ã»¯¹ÜÀí¡£ipv6tables¹æÔòÓëiptables¹æÔò¹ÜÀíÀàËÆ¡£ÈôÒªÍê³ÉÓÉÖ÷»úipv6µ½ÈÝÆ÷µÄipv6µØÖ··ÃÎÊ£¬ÐèÒªÔÚÖ÷»úÉÏÌí¼ÓÄ¿±êµØÖ·¸Ä±äµÄ×ª·¢¹æÔò¡£ÀýÈç¶Ë¿ÚÓ³Éä£¬½«ÈÝÆ÷ÄÚµÄ¶Ë¿ÚÓëÖ÷»úµÄ¶Ë¿ÚÐÎ³ÉÓ³Éä£¬µ±ÓÐipv6Êý¾Ý°ü½øÈëÖ÷»úÇÒÄ¿±ê¶Ë¿ÚÎªÓ³Éä¶Ë¿ÚÊ±£¬ÓÉiptables¹æÔò½«¶ÔÓ¦µÄÊý¾Ý°ü×ª·¢µ½ÈÝÆ÷ÄÚ¡£ÒªÊµÏÖ¶Ë¿ÚÓ³Éä£¬×î¼òµ¥µÄÇé¿öÏÂÊÇÔÚPREROUTING¹æÔòÁ´ÖÐÌí¼ÓDNAT£¬½«½ÓÊÕµ½µÄÊý¾Ý°ü×ª·¢¸ø¶ÔÓ¦µÄÈÝÆ÷¡£²¢ÇÒÔÚPOSTROUTING¹æÔòÁ´ÖÐÌí¼ÓÌí¼ÓMASQUERADE¡£Ç°ÕßÄ¿µÄÊÇÈÃÍâ²¿ÊÀ½çÄÜ¹»·ÃÎÊÈÝÆ÷£¬ºóÕßÈÃÈÝÆ÷ÄÜ¹»·ÃÎÊÍâ²¿ÊÀ½ç¡£
-×¢Òâ£¬ÒÔÉÏ½ö½öÊÇ×î¼ò»¯µÄÍøÂçÉèÖÃ£¬¸´ÔÓÇé¿öÏÂ»¹ÐèÒª¿¼ÂÇÍøÂçµÄ¸ôÀë£¨ÔÚdockerµÄipv4Êý¾ÝÍøÂçÖÐ²»Í¬ÍøÂç¼äÏà»¥¸ôÀë£©ºÍÍøÂç°²È«ÐÔµÄÎÊÌâ¡£
-ÖÁ´Ë£¬»ù±¾µÄipv6ÍøÂç»·¾³»ù±¾Íê³É¡£Êý¾Ý¿ÉÒÔÍ¨¹ýipv6µØÖ··ÃÎÊÈÝÆ÷·þÎñ¡£ÇÒÊý¾Ý°ü²»»á¾­¹ýÖ÷»úÓÃ»§Ì¬£¬Ö±½ÓÓÉÄÚºË¸ºÔðÊý¾Ý°üµÄ×ª·¢¡£ÆäÍøÂç¹¤×÷Ä£Ê½Óëipv4ÀàËÆ¡£
-´ËÊ±ÒªÇóÈÝÆ÷ÄÚ²¿µÄ·þÎñÖ§³Ö½ÓÊÕipv6Êý¾Ý£¬Òò´Ë·þÎñÐèÒª¿ª·¢¡£
+  åŸºäºŽç¬¬ä¸€ä¸ªæ–¹æ¡ˆï¼Œè§£å†³å…¶ä¸­çš„å®¹å™¨æ— æ³•é€šè¿‡ipv6åœ°å€è®¿é—®å¤–éƒ¨æœåŠ¡çš„é—®é¢˜ã€‚è§£å†³è¿™ä¸ªé—®é¢˜ï¼Œæ–¹æ³•ä¸å¤æ‚ï¼Œå¯ä»¥åˆ©ç”¨ip6tableså¯¹å®¹å™¨å†…å‘å¤–éƒ¨å‘é€çš„æ•°æ®è¿›è¡Œåœ°å€ä¼ªè£…ï¼Œä½¿å¾—ipv6æ•°æ®èƒ½å¤Ÿä»Žå®¹å™¨ä¸­ç»è¿‡ä¸»æœºç½‘å¡ï¼Œå¹¶ä»Žæ­£ç¡®çš„ç½‘å¡æµå‘å¤–éƒ¨ä¸–ç•Œã€‚ï¼ˆè¯¥æ–¹æ¡ˆéœ€è¦äº†è§£iptablesè§„åˆ™ä½¿ç”¨ï¼Œè¯¦æƒ…æŸ¥çœ‹iptablesè§„åˆ™ï¼‰
+åœ¨dockerçš„bridgeç½‘æ¡¥ä¸­é»˜è®¤ä¸ä¼šå¼€å¯ipv6æ¨¡å¼ï¼Œæ­¤æ—¶å®¹å™¨å†…ä¸ä¼šåˆ†é…ipv6åœ°å€ï¼Œå®¹å™¨å†…æœåŠ¡æ— æ³•æ”¶å‘ipv6æ•°æ®æŠ¥ã€‚å› æ­¤éœ€è¦ä¸ºåˆ›å»ºçš„bridgeç½‘ç»œå¯åŠ¨ipv6ã€‚å¯åŠ¨æ–¹å¼ä¸ºåˆ›å»ºbridgeç½‘ç»œæ—¶ä¸ºåˆ›å»ºçš„ç½‘ç»œåˆ†é…ipv6åœ°å€ï¼Œå¹¶å¯ç”¨ipv6ã€‚å½“å®¹å™¨ä½¿ç”¨è¯¥ç½‘ç»œæ—¶ä¼šè‡ªåŠ¨åˆ†é…ipv6åœ°å€ã€‚
+dockeråˆ›å»ºipv6ç½‘ç»œå‘½ä»¤å®žä¾‹å¦‚ä¸‹ï¼Œå…·ä½“åœ°å€å¯è‡ªè¡Œè§„åˆ’ï¼š
+  "docker network create --gateway 172.17.0.1 --subnet 172.17.0.1/16 --subnet 20001:250:4001:2001::1/64 --gateway 20001:250:4001:2001::1 --ipv6 ipv6_test"
+  å½“å®¹å™¨å¯åŠ¨æ—¶å¯é€šè¿‡"--network ipv6_test"çš„æ–¹å¼ä¸ºå®¹å™¨åˆ†é…ç½‘ç»œï¼Œå®¹å™¨åˆ›å»ºæˆåŠŸè¿‡åŽï¼Œå®¹å™¨å†…éƒ¨ä¼šè‡ªåŠ¨åˆ†é…ipv6åœ°å€ã€‚
+æ­¤æ—¶è¯¥æ–¹æ¡ˆçš„å·¥ä½œå·²ç»å®Œæˆå¤§åŠäº†ï¼Œæ­¤æ—¶å®¹å™¨è™½ç„¶åˆ†é…äº†ipv6åœ°å€ï¼Œä½†æ˜¯ä»ç„¶æ— æ³•è®¿é—®å¤–éƒ¨ç½‘ç»œçš„ipv6åœ°å€ã€‚è¿™æ˜¯å› ä¸ºå®¹å™¨å†…è®¿é—®å¤–éƒ¨ipv6ï¼Œæ•°æ®æŠ¥ç»è¿‡ç½‘æ¡¥æµå…¥ä¸»æœºåŽæºåœ°å€ä¸ºå®¹å™¨ipv6åœ°å€ï¼Œè¿™ä¸ªåœ°å€æ— æ³•å¯¹è¢«å¤–éƒ¨ç½‘ç»œæ‰€è®¤å¯ï¼Œè¯¥æ•°æ®æŠ¥éœ€è¦ç»è¿‡åœ°å€ä¼ªè£…ï¼Œä½¿å…¶ipv6æ•°æ®æŠ¥ä½¿ç”¨å¯ç”¨çš„ipv6åœ°å€ã€‚è¿™ä¸ªè¿‡ç¨‹å¯ä»¥äº¤ç»™ip6tablesè§„åˆ™è¿›è¡Œï¼Œå·¥ä½œæ–¹å¼ä¸Žiptablesè§„åˆ™ç±»ä¼¼ã€‚
+  ipv6æ•°æ®æŠ¥ç»è¿‡ç½‘æ¡¥è¿›å…¥ä¸»æœºæ—¶ï¼Œé¦–å…ˆä¼šç”±PREROUTING -> FORWARD ->OUTPUT ->POSTROUTINGç­‰è§„åˆ™é“¾ã€‚æ­¤æ—¶ç”±äºŽæ²¡æœ‰ç»è¿‡åœ°å€ä¼ªè£…ï¼Œæ•°æ®æŠ¥åœ¨ç»è¿‡POSTROUTINGåŽæ— æ³•æ­£ç¡®å¯»å€ï¼Œå› æ­¤æ— æ³•è®¿é—®å¤–éƒ¨ç½‘ç»œã€‚å› æ­¤æˆ‘ä»¬å¯ä»¥åœ¨POSTROUTINGå¤„ä¸ºè¯¥æ•°æ®æŠ¥åŠ ä¸Šåœ°å€ä¼ªè£…ã€‚è§„åˆ™åˆ›å»ºæŒ‡ä»¤ç¤ºä¾‹å¦‚ä¸‹ï¼š
+  â€œip6tables -t nat -I POSTROUTING -j MASQUERADEâ€
+  ç¤ºä¾‹æŒ‡ä»¤ï¼Œå°†ä¼šå¯¹æ¯ä¸ªç»è¿‡POSTROUTINGè§„åˆ™é“¾çš„æ•°æ®åŒ…ç»è¿‡åœ°å€ä¼ªè£…ã€‚è¿™æ˜¯æœ€ç®€å•çš„å†™æ³•ï¼Œå¯ä»¥æ ¹æ®éœ€è¦å¯¹ç²¾ç¡®åŒ¹é…æ•°æ®åŒ…ï¼Œä¾‹å¦‚ä»Žæ•°æ®åŒ…æºå€ï¼Œæµå…¥ç½‘å¡ï¼Œæµå‡ºç½‘å¡ï¼Œç±»åž‹ç­‰è¿›è¡Œç²¾ç¡®åŒ¹é…ï¼ˆè¯¦æƒ…å¯æŸ¥çœ‹iptablesè§„åˆ™ï¼Œæ­¤å¤„ä¸è¯¦ç»†ä»‹ç»ï¼‰ã€‚
+  æ­¤æ—¶å¯æ”¯æŒå®¹å™¨å¯¹å¤–è®¿é—®ã€‚
+  ä¼˜ç‚¹ï¼š
+  1ã€åœ¨æ–¹æ¡ˆä¸€çš„åŸºç¡€ä¸Šï¼Œè½»å¾®çš„æ”¹é€ ä»¥å¿«é€Ÿæ”¯æŒå®¹å™¨å¯¹å¤–éƒ¨ç½‘ç»œè®¿é—®
+  ç¼ºç‚¹ï¼š
+  1ã€éœ€è¦ç®¡ç†åœ°å€ä¼ªè£…è§„åˆ™ï¼Œä½¿å…¶æŒä¹…åŒ–ï¼Œä¹Ÿè®¸éœ€è¦ä¸€ä¸ªä¸»æœºç³»ç»Ÿç®¡ç†æœåŠ¡æ¥ä¸“é—¨ç»´æŠ¤iptablesè§„åˆ™
+  2ã€å¤–éƒ¨ç½‘ç»œé€šè¿‡ipv6è®¿é—®å®¹å™¨ï¼Œä»ç„¶æ˜¯é€šè¿‡dockerçš„ipv6 -> ipv4éš§é“ï¼Œæ•ˆçŽ‡ä»ç„¶å¾ˆå·®
 
-ÓÅµã£º
-1¡¢Í¨¹ýiptablesÊµÏÖipv6Êý¾Ý°ü×ª·¢£¬Ð§ÂÊ½Ï¸ß
-2¡¢ÈÝÆ÷ÄÜ¹»Í¨¹ýµØÖ·Î±×°Ê¹ÓÃÖ÷»úµÄipv6µØÖ··ÃÎÊÍâ²¿ÍøÂç
-3¡¢ÓÉÓÚip6tables¹æÔòÓÉ¿ª·¢Õß¹ÜÀí£¬¿ÉÒÔ¶¯Ì¬µÄÌí¼Ó¶Ë¿ÚÓ³Éä
-È±µã£º
-1¡¢ÐèÒª¿ª·¢Èí¼þ´úÂë£¬Ê¹ÆäÖ§³Öipv6Êý¾Ý°üµÄÊÕ·¢
-2¡¢ÐèÒª¿ª·¢Ò»¸ö·þÎñ¹ÜÀí¡¢Î¬»¤ip6tables¹æÔò
 
-ËÄ¡¢dockerÌá¹©µÄipv6·½°¸
-±¾·½°¸È±ÉÙ»·¾³£¬Ã»ÓÐÊµ¼ù¡£
-dockerÌá¹©µÄipv6·½°¸ÊÇÖ÷»úÍø¿¨ÉÏ´æÔÚÒ»¸öÕæÊµ¿ÉÓÃµÄipv6µØÖ·£¬Í¬Ê±»¹ÐèÒªÒ»¶Î¿ÉÅäÖÃµÄÊ¹ÓÃµÄÍ¬Ö÷»úÍø¶Î£¨»òÕßËµ×ÓÍø¶Î£©µÄipv6µØÖ·¡£Í¨¹ýÔÚ´´½¨ÈÝÆ÷ÍøÇÅµÄÊ±ºòÎªÆä·ÖÅäÕâ¶ÎµØÖ·£¬´´½¨ÈÝÆ÷Ê±Ê¹ÓÃ¸ÃÍøÂçµØÖ·¡£×îºóÔÙÍ¨¹ýNDP´úÀí£¨ÁÚ½Óµã·¢ÏÖ£©µÄ·½Ê½Ê¹µÃÍâ²¿ÊÀ½ç¿ÉÒÔÖ±½ÓÍ¨¹ýÈÝÆ÷µÄipv6µØÖ··ÃÎÊÈÝÆ÷¡£
+  ä¸‰ã€ip6tablesè§„åˆ™å®žçŽ°ipv6å®¹å™¨è½¬å‘
+  
+  åŸºäºŽæ–¹æ¡ˆäºŒçš„åŸºç¡€ä¸Šï¼Œè¯¥æ–¹æ¡ˆçš„å¤§éƒ¨åˆ†åŸºç¡€æ¡ä»¶å·²ç»å¯ä»¥æ»¡è¶³ã€‚å¯¹äºŽip6tablesè§„åˆ™çš„ç®¡ç†ï¼Œä¸€èˆ¬ä¼šåˆ©ç”¨ä¸€ä¸ªä¸»æœºä¸ŠæœåŠ¡è¿›è¡Œç®¡ç†ã€æŒä¹…åŒ–ã€‚é‚£ä¹ˆå€Ÿé‰´dockerå¯¹ipv4æ•°æ®è½¬å‘çš„åŽŸç†ã€‚å¯ä»¥å°†å…¶ä½¿ç”¨åœ¨ipv6æ•°æ®åŒ…ä¸­ã€‚é€šè¿‡ip6tablesçš„ç®¡ç†å·¥å…·æ¥ç®¡ç†è‡ªå®šä¹‰çš„iptablesè§„åˆ™ã€‚
+  æ€»ä½“æ¥è¯´è¦ç®€å•çš„å®žçŽ°ipv6æ•°æ®åŒ…ç”±ip6tableså®žçŽ°è½¬å‘ï¼Œä¸»è¦çš„å·¥ä½œåœ¨ä¸Žé…ç½®iptablesè§„åˆ™ã€‚å¹¶å°†iptablesè§„åˆ™æŒä¹…åŒ–ç®¡ç†ã€‚ipv6tablesè§„åˆ™ä¸Žiptablesè§„åˆ™ç®¡ç†ç±»ä¼¼ã€‚è‹¥è¦å®Œæˆç”±ä¸»æœºipv6åˆ°å®¹å™¨çš„ipv6åœ°å€è®¿é—®ï¼Œéœ€è¦åœ¨ä¸»æœºä¸Šæ·»åŠ ç›®æ ‡åœ°å€æ”¹å˜çš„è½¬å‘è§„åˆ™ã€‚ä¾‹å¦‚ç«¯å£æ˜ å°„ï¼Œå°†å®¹å™¨å†…çš„ç«¯å£ä¸Žä¸»æœºçš„ç«¯å£å½¢æˆæ˜ å°„ï¼Œå½“æœ‰ipv6æ•°æ®åŒ…è¿›å…¥ä¸»æœºä¸”ç›®æ ‡ç«¯å£ä¸ºæ˜ å°„ç«¯å£æ—¶ï¼Œç”±iptablesè§„åˆ™å°†å¯¹åº”çš„æ•°æ®åŒ…è½¬å‘åˆ°å®¹å™¨å†…ã€‚è¦å®žçŽ°ç«¯å£æ˜ å°„ï¼Œæœ€ç®€å•çš„æƒ…å†µä¸‹æ˜¯åœ¨PREROUTINGè§„åˆ™é“¾ä¸­æ·»åŠ DNATï¼Œå°†æŽ¥æ”¶åˆ°çš„æ•°æ®åŒ…è½¬å‘ç»™å¯¹åº”çš„å®¹å™¨ã€‚å¹¶ä¸”åœ¨POSTROUTINGè§„åˆ™é“¾ä¸­æ·»åŠ æ·»åŠ MASQUERADEã€‚å‰è€…ç›®çš„æ˜¯è®©å¤–éƒ¨ä¸–ç•Œèƒ½å¤Ÿè®¿é—®å®¹å™¨ï¼ŒåŽè€…è®©å®¹å™¨èƒ½å¤Ÿè®¿é—®å¤–éƒ¨ä¸–ç•Œã€‚
+æ³¨æ„ï¼Œä»¥ä¸Šä»…ä»…æ˜¯æœ€ç®€åŒ–çš„ç½‘ç»œè®¾ç½®ï¼Œå¤æ‚æƒ…å†µä¸‹è¿˜éœ€è¦è€ƒè™‘ç½‘ç»œçš„éš”ç¦»ï¼ˆåœ¨dockerçš„ipv4æ•°æ®ç½‘ç»œä¸­ä¸åŒç½‘ç»œé—´ç›¸äº’éš”ç¦»ï¼‰å’Œç½‘ç»œå®‰å…¨æ€§çš„é—®é¢˜ã€‚
+è‡³æ­¤ï¼ŒåŸºæœ¬çš„ipv6ç½‘ç»œçŽ¯å¢ƒåŸºæœ¬å®Œæˆã€‚æ•°æ®å¯ä»¥é€šè¿‡ipv6åœ°å€è®¿é—®å®¹å™¨æœåŠ¡ã€‚ä¸”æ•°æ®åŒ…ä¸ä¼šç»è¿‡ä¸»æœºç”¨æˆ·æ€ï¼Œç›´æŽ¥ç”±å†…æ ¸è´Ÿè´£æ•°æ®åŒ…çš„è½¬å‘ã€‚å…¶ç½‘ç»œå·¥ä½œæ¨¡å¼ä¸Žipv4ç±»ä¼¼ã€‚
+  æ­¤æ—¶è¦æ±‚å®¹å™¨å†…éƒ¨çš„æœåŠ¡æ”¯æŒæŽ¥æ”¶ipv6æ•°æ®ï¼Œå› æ­¤æœåŠ¡éœ€è¦å¼€å‘ã€‚
+
+  ä¼˜ç‚¹ï¼š
+  1ã€é€šè¿‡iptableså®žçŽ°ipv6æ•°æ®åŒ…è½¬å‘ï¼Œæ•ˆçŽ‡è¾ƒé«˜
+  2ã€å®¹å™¨èƒ½å¤Ÿé€šè¿‡åœ°å€ä¼ªè£…ä½¿ç”¨ä¸»æœºçš„ipv6åœ°å€è®¿é—®å¤–éƒ¨ç½‘ç»œ
+  3ã€ç”±äºŽip6tablesè§„åˆ™ç”±å¼€å‘è€…ç®¡ç†ï¼Œå¯ä»¥åŠ¨æ€çš„æ·»åŠ ç«¯å£æ˜ å°„
+  ç¼ºç‚¹ï¼š
+  1ã€éœ€è¦å¼€å‘è½¯ä»¶ä»£ç ï¼Œä½¿å…¶æ”¯æŒipv6æ•°æ®åŒ…çš„æ”¶å‘
+  2ã€éœ€è¦å¼€å‘ä¸€ä¸ªæœåŠ¡ç®¡ç†ã€ç»´æŠ¤ip6tablesè§„åˆ™
+
+  å››ã€dockeræä¾›çš„ipv6æ–¹æ¡ˆ
+  æœ¬æ–¹æ¡ˆç¼ºå°‘çŽ¯å¢ƒï¼Œæ²¡æœ‰å®žè·µã€‚
+  dockeræä¾›çš„ipv6æ–¹æ¡ˆæ˜¯ä¸»æœºç½‘å¡ä¸Šå­˜åœ¨ä¸€ä¸ªçœŸå®žå¯ç”¨çš„ipv6åœ°å€ï¼ŒåŒæ—¶è¿˜éœ€è¦ä¸€æ®µå¯é…ç½®çš„ä½¿ç”¨çš„åŒä¸»æœºç½‘æ®µï¼ˆæˆ–è€…è¯´å­ç½‘æ®µï¼‰çš„ipv6åœ°å€ã€‚é€šè¿‡åœ¨åˆ›å»ºå®¹å™¨ç½‘æ¡¥çš„æ—¶å€™ä¸ºå…¶åˆ†é…è¿™æ®µåœ°å€ï¼Œåˆ›å»ºå®¹å™¨æ—¶ä½¿ç”¨è¯¥ç½‘ç»œåœ°å€ã€‚æœ€åŽå†é€šè¿‡NDPä»£ç†ï¼ˆé‚»æŽ¥ç‚¹å‘çŽ°ï¼‰çš„æ–¹å¼ä½¿å¾—å¤–éƒ¨ä¸–ç•Œå¯ä»¥ç›´æŽ¥é€šè¿‡å®¹å™¨çš„ipv6åœ°å€è®¿é—®å®¹å™¨ã€‚
 
 
 
